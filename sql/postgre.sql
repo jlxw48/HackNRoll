@@ -10,6 +10,7 @@ CREATE TYPE faculty AS enum ('FASS', 'Business', 'Engineering', 'Computing', 'Sc
 
 CREATE TABLE users (
     telegram_id INTEGER PRIMARY KEY,
+    telegram_username VARCHAR,
     faculty faculty NOT NULL,
     study_year INTEGER NOT NULL,
     gender gender NOT NULL

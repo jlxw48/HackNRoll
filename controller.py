@@ -15,9 +15,8 @@ import psycopg2
 from api.telegram_api import send_message
 from command_handlers import COMMAND_HANDLERS, handle_invalid_command
 
-DATABASE_URL = os.environ["DATABASE_URL"]
-conn = psycopg2.connect(DATABASE_URL, sslmode="require")
-cursor = conn.cursor()
+# DATABASE_URL = os.environ["DATABASE_URL"]
+
 
 
 @app.route('/')
@@ -66,25 +65,21 @@ def __process_telegram_commands(user: User, session: Session, commands):
     for command in commands:
         COMMAND_HANDLERS.get(command, handle_invalid_command)(user, command, session.id)
 
-
 def __process_individual_telegram_command(command):
     if is_not_blank(command):
         return COMMAND_HANDLERS.get(command, handle_invalid_command)(command)
     else:
         return 'Error in processing individual telegram command'
 
-
 def __process_input(user: User, session: Session, user_input):
-    #intent_action = 'DEFAULT'   # testing default
+    intent_action = 'DEFAULT'   # testing default
 
-    intent_action = default_if_blank(user_input, 'DEFAULT')
+    # intent_action = default_if_blank(user_input, 'DEFAULT')
 
     print('__process_input function intent action:' + intent_action)  #debugging
 
     if is_not_blank(intent_action):
         INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id)
-
-
 
 # from flask import request
 #
