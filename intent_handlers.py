@@ -212,7 +212,7 @@ def __create_user(user: User, intent_action, session_id):
     query = QUERIES.get("INSERT_USER")
 
     cursor = conn.cursor()
-    cursor.execute(query, ('my_id', 'FASS', 1, 'male')) # need to pass in the data here in the 2nd param
+    cursor.execute(query, (123, 'my_id', 'FASS', 1, 'male')) # need to pass in the data here in the 2nd param
     conn.commit()
     cursor.close()
 
@@ -220,11 +220,11 @@ def __create_user(user: User, intent_action, session_id):
     return send_message(user, intent_action, session_id, response)
 
 def __get_friends(user: User, intent_action, session_id):
-    response = ""
+    response = "hi!"
 
-    query = "SELECT * FROM test;"
+    query = QUERIES.get("GET_5_USERS_NO_PREF")
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute(query, ()) # pass module here
     row = cursor.fetchone()
     if row is not None:
         while row is not None:
@@ -249,6 +249,6 @@ INTENT_HANDLERS = {
     "Year of Study": __update_year,
     "Faculty": __update_faculty,
     "Module": __update_module,
-    'TESTING': __create_user,
+    'TESTING': __get_friends,
     'UPDATE_PARTICULARS': __show_update_particulars_suggestions
 }

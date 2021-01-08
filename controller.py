@@ -72,7 +72,7 @@ def __process_individual_telegram_command(command):
         return 'Error in processing individual telegram command'
 
 def __process_input(user: User, session: Session, user_input):
-    intent_action = 'DEFAULT'   # testing default
+    intent_action = 'TESTING'   # testing default
 
     # intent_action = default_if_blank(user_input, 'DEFAULT')
 
