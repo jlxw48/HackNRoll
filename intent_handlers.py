@@ -220,6 +220,8 @@ def __choose_pref(user: User, intent_action, session_id, user_input):
 def __choose_filter(user: User, intent_action, session_id, user_input):
     pref = user_input
     user.pref = pref
+    print("prefs are:")
+    print(user.pref)
     return send_message_with_options(user, intent_action, session_id, "Please choose a filter!",
                                      *CHOOSE_PREF, row_width=1)
 
@@ -281,5 +283,8 @@ INTENT_HANDLERS = {
     'Looking for module mates!': __enter_mod_code,
     "mod": __choose_pref,
     "filter": __choose_filter,
-
+    "No Preference": __get_friends,
+    "Year only": __get_friends,
+    "Gender only": __get_friends,
+    "Year and Gender only": __get_friends
 }

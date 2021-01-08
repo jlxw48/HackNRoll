@@ -1,9 +1,11 @@
 # FILL IN CODE
 # Remove pass placeholder
 class User:
-    def __init__(self, user_id, user_name, mod=None, pref=None):
+    def __init__(self, user_id, user_name, mod=None, pref=[]):
         self.__id = user_id
         self.__name = user_name
+        self.__mod = mod
+        self.__pref = pref
 
     @property
     def id(self):
