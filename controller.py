@@ -36,6 +36,7 @@ def webhook():
     user_input = get_user_input_from_request(req_body)
     commands = get_user_command_from_request(req_body)  # new
 
+    print(req_body)
     print('user_input:' + user_input)
     print(commands)
 
