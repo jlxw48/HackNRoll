@@ -6,7 +6,7 @@ SET search_path TO soscoders;
 
 --Tables
 CREATE TYPE gender AS enum ('male', 'female');
-CREATE TYPE faculty AS enum ('FASS', 'Business', 'Engineering', 'Computing', 'Science', 'SDE', 'Music')
+CREATE TYPE faculty AS enum ('FASS', 'Business', 'Engineering', 'Computing', 'Science', 'SDE', 'Music');
 
 CREATE TABLE users (
     telegram_id INTEGER PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE request (
-    id INTEGER references user(telegram_id),
+    id INTEGER references users (telegram_id),
     module VARCHAR NOT NULL,
     PRIMARY KEY(id, module)
 );
