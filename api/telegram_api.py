@@ -31,7 +31,8 @@ def force_reply_after_name(user: User, state, session_id, response):
     # Takes an optional selective argument (True/False, default False)
     msg = "Name received\nPlease input your gender now:"
     markup = types.ForceReply(selective=False)
-    return bot.send_message(user.id, response, reply_markup=markup)
+    bot.send_message(user.id, response, reply_markup=markup)
+    force_reply_after_gender(user, state, session_id, "gender")
 
 
 def force_reply_after_gender(user: User, state, session_id, response):
@@ -39,7 +40,8 @@ def force_reply_after_gender(user: User, state, session_id, response):
     # Takes an optional selective argument (True/False, default False)
     msg = "Gender received\nPlease input your year now:"
     markup = types.ForceReply(selective=False)
-    return bot.send_message(user.id, msg, reply_markup=markup)
+    bot.send_message(user.id, msg, reply_markup=markup)
+    force_reply_after_year(user, state, session_id, "year")
 
 
 def force_reply_after_year(user: User, state, session_id, response):
@@ -48,6 +50,7 @@ def force_reply_after_year(user: User, state, session_id, response):
     msg = "Year received\nPlease input your faculty now:"
     markup = types.ForceReply(selective=False)
     return bot.send_message(user.id, msg, reply_markup=markup)
+
 
 
 # import telebot
