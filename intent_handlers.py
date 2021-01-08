@@ -224,7 +224,7 @@ def __choose_filter(user: User, intent_action, session_id, user_input):
                                      *CHOOSE_PREF, row_width=1)
 
 def __get_friends(user: User, intent_action, session_id, user_input):
-    query = ''
+    # query = ''
     cursor = conn.cursor()
 
     if user_input == "No Preference":
