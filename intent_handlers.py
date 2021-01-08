@@ -4,7 +4,6 @@ from api.telegram_api import send_message, send_message_with_options
 from beans.user import User
 from cache import get_current_order, add_to_order, clear_from_order
 from constants import *
-import requests
 from utils import default_if_blank, is_not_blank, get_items_from_response
 import psycopg2
 
@@ -192,22 +191,10 @@ def __update_faculty(user: User, intent_action, session_id, user_input):
 
     return send_message(user, intent_action, session_id, response)
 
-
 def __update_module(user: User, intent_action, session_id, user_input):
     response = "Updating module:\n"
 
     return send_message(user, intent_action, session_id, response)
-
-
-# Fetches module list from NUSMODS then check if provided module_code is in the list
-def check_module_valid(module_code: str) -> bool:
-    acad_year = "2020-2021"
-    get_url = f"https://api.nusmods.com/v2/{acad_year}/moduleList.json"
-    modules_get = requests.get(get_url)
-    modules_objects = modules_get.json()
-    modules_list = [module["moduleCode"] for module in modules_objects]
-    return module_code in modules_list
-
 
 def __create_user(user: User, intent_action, session_id, lst):
     query = QUERIES.get("INSERT_USER")
@@ -215,20 +202,54 @@ def __create_user(user: User, intent_action, session_id, lst):
     cursor = conn.cursor()
     print(lst)
     new_lst = [int(lst[i]) if (i == 0 or i == 3) else lst[i] for i in range(len(lst))]
-    cursor.execute(query, )  # need to pass in the data here in the 2nd param
+    cursor.execute(query, new_lst)  # need to pass in the data here in the 2nd param
     conn.commit()
     cursor.close()
 
     response = "Profile created!"
     return send_message(user, intent_action, session_id, response)
 
+def __enter_mod_code(user: User, intent_action, session_id, user_input):
+    return send_message(user, intent_action, session_id, "Please enter a module code!")
+
+def __choose_pref(user: User, intent_action, session_id, user_input):
+    mod = user_input
+    user.mod = mod
+    return send_message(user, intent_action, session_id, "Please enter your choices!")
+
+def __choose_filter(user: User, intent_action, session_id, user_input):
+    pref = user_input
+    user.pref = pref
+    return send_message_with_options(user, intent_action, session_id, "Please choose a filter!",
+                                     *CHOOSE_PREF, row_width=1)
 
 def __get_friends(user: User, intent_action, session_id, user_input):
-    response = "hi!"
-
-    query = QUERIES.get("GET_5_USERS_NO_PREF")
+    query = ''
     cursor = conn.cursor()
-    cursor.execute(query, ()) # pass module here
+
+    if user_input == "No Preference":
+        query = QUERIES.get("GET_5_USERS_NO_PREF")
+        cursor.execute(query, (user.mod,))  # pass module here
+    # elif user_input == 'Faculty only':
+    #     query = QUERIES.get("GET_5_USERS_FAC")
+    elif user_input == 'Year only':
+        query = QUERIES.get("GET_5_USERS_YEAR")
+        cursor.execute(query, (user.mod, user.pref[0]))  # pass module here
+    elif user_input == 'Gender only':
+        query = QUERIES.get("GET_5_USERS_GENDER")
+        cursor.execute(query, (user.mod,user.pref[1]))  # pass module here
+    # elif user_input == 'Faculty and Year only':
+    #     query = QUERIES.get("GET_5_USERS_FAC_YEAR")
+    # elif user_input == 'Faculty and Gender only':
+    #     query = QUERIES.get("GET_5_USERS_FAC_GENDER")
+    elif user_input == 'Year and Gender only':
+        query = QUERIES.get("GET_5_USERS_YEAR_GENDER")
+        cursor.execute(query, (user.mod,user.pref[0], user.pref[1]))  # pass module here
+    # else:
+    #     query = QUERIES.GET("GET_5_USERS_FAC_YEAR_GENDER")
+
+    response = "here are your friends!\n"
+
     row = cursor.fetchone()
     if row is not None:
         while row is not None:
@@ -256,5 +277,9 @@ INTENT_HANDLERS = {
     "Module": __update_module,
     'start': __create_user,
     'TESTING': __get_friends,
-    'UPDATE_PARTICULARS': __show_update_particulars_suggestions
+    'UPDATE_PARTICULARS': __show_update_particulars_suggestions,
+    'Looking for module mates!': __enter_mod_code,
+    "mod": __choose_pref,
+    "filter": __choose_filter,
+
 }

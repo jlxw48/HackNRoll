@@ -11,6 +11,7 @@ from utils import \
     get_user_command_from_request
 import os
 import psycopg2
+import requests
 
 from api.telegram_api import send_message
 from command_handlers import COMMAND_HANDLERS, handle_invalid_command
@@ -40,26 +41,35 @@ def webhook():
     print('user_input:' + user_input)
     print(commands)
 
-    # if len(commands) > 0 and commands[0] == 'start':
-    #     # lst = user_input.split(" ")
-    #     # input = lst[1]
-    #     lst = user_input.split(";")
-    #     print(lst)
-    #     __process_start(user, session, lst)
-
     if is_not_blank(user.id, user_input) and len(commands) > 0:
         __process_request(user, session, user_input, commands)
     elif is_not_blank(user.id, user_input):
         if ';' in user_input:
+            user_input = user_input.split(";")
             __process_start(user, session, user_input)
+        elif check_module_valid(user_input):
+            __process_code(user, session, user_input)
         else:
-            __process_input(user, session, user_input)
+            if 'year:' in user_input and 'gender' in user_input:
+                __process_filter(user, session, user_input)
+            else:
+                __process_input(user, session, user_input)
+
 
     # # Original working code
     # if is_not_blank(user.id, user_input):
     #     __process_input(user, session, user_input)
 
     return 'This works!'
+
+# Fetches module list from NUSMODS then check if provided module_code is in the list
+def check_module_valid(module_code: str) -> bool:
+    acad_year = "2020-2021"
+    get_url = f"https://api.nusmods.com/v2/{acad_year}/moduleList.json"
+    modules_get = requests.get(get_url)
+    modules_objects = modules_get.json()
+    modules_list = [module["moduleCode"] for module in modules_objects]
+    return module_code in modules_list
 
 
 # Process incoming request as either one with commands or one for Dialogflow
@@ -90,14 +100,21 @@ def __process_input(user: User, session: Session, user_input):
 
     intent_action = default_if_blank(user_input, 'DEFAULT')
 
-    print('__process_input function intent action:' + intent_action)  # debugging
+    # print('__process_input function intent action:' + intent_action)  # debugging
 
-    if is_not_blank(intent_action):
-        INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id, user_input)
+    # if is_not_blank(intent_action):
+    INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id, user_input)
 
+def __process_filter(user: User, session: Session, input):
+    temp_lst = input.split("-")
+    lst = [temp_lst[0].split(":")[1].strip(), temp_lst[1].split(":").strip()]
+    INTENT_HANDLERS.get("filter", handle_invalid_intent)(user, "filter", session.id, lst)
 
 def __process_start(user: User, session: Session, lst):
     INTENT_HANDLERS.get("start", handle_invalid_intent)(user, "start", session.id, lst)
+
+def __process_code(user: User, session: Session, mod):
+    INTENT_HANDLERS.get("mod", handle_invalid_intent)(user, "mod", session.id, mod)
 
 # from flask import request
 #
