@@ -36,10 +36,16 @@ def webhook():
     user_input = get_user_input_from_request(req_body)
     commands = get_user_command_from_request(req_body)  # new
 
+    print('user: ' + user)
+    print('session' + session)
+    print('user_input:' + user_input)
+    print('commands: ' + commands)
+
     if len(commands) > 0 and commands[0] == 'start':
-        lst = user_input.split(" ")
-        input = lst[1]
-        lst = input.split(";")
+        # lst = user_input.split(" ")
+        # input = lst[1]
+        lst = user_input.split(";")
+        print('lst: ' + lst)
         __process_start(user, session, lst)
 
     elif is_not_blank(user.id, user_input) and len(commands) > 0:
