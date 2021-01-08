@@ -35,17 +35,17 @@ def webhook():
     user = get_user_from_request(req_body)
     session = get_current_session(user)
     user_input = get_user_input_from_request(req_body)
-    commands = get_user_command_from_request(req_body)  # new
-
-    if is_not_blank(user.id, user_input):
-        __process_request(user, session, user_input, commands)
-
-    __process_input(user, session, 'TESTING')
+    # commands = get_user_command_from_request(req_body)  # new
+    #
+    # if is_not_blank(user.id, user_input):
+    #     __process_request(user, session, user_input, commands)
+    #
+    # __process_input(user, session, 'TESTING')
 
 
     # Original working code
-    # if is_not_blank(user.id, user_input):
-    #     __process_input(user, session, user_input)
+    if is_not_blank(user.id, user_input):
+        __process_input(user, session, user_input)
 
     return 'This works!'
 
