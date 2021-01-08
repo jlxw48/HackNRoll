@@ -46,7 +46,8 @@ def webhook():
 #         INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_result, session.id)
 
 def __process_input(user: User, session: Session, user_input):
-    intent_action = default_if_blank('UPDATE_PARTICULARS', '')
+    intent_action = 'UPDATE_PARTICULARS'   # testing default
+    #intent_action = default_if_blank(user_input, 'UPDATE_PARTICULARS')
 
     if is_not_blank(intent_action):
         INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id)

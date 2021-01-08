@@ -140,7 +140,7 @@ def __show_ongoing_order_suggestions(user: User, intent_result, session_id):
 
 
 def __show_update_particulars_suggestions(user: User, intent_action, session_id):
-    response = intent_action.fulfillment_text
+    response = "UPDATE_PARTICULARS"
 
     return send_message_with_options(user, intent_action, session_id, response,
                                      *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
