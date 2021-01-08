@@ -139,6 +139,11 @@ def __show_ongoing_order_suggestions(user: User, intent_result, session_id):
                                      *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
 
 
+def __display_test(user: User, intent_action, session_id):
+    response = "display_test function"
+    return send_message(user, intent_action, session_id, response)
+
+
 def __show_update_particulars_suggestions(user: User, intent_action, session_id):
     response = "UPDATE_PARTICULARS"
 
@@ -160,5 +165,6 @@ INTENT_HANDLERS = {
     # 'SUBMIT_ORDER': __submit_order,
     # 'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
     # 'SHOW_ONGOING_ORDER_SUGGESTIONS': __show_ongoing_order_suggestions,
+    'TESTING': __display_test,
     'UPDATE_PARTICULARS': __show_update_particulars_suggestions
 }

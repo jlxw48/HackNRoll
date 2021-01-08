@@ -39,6 +39,8 @@ def webhook():
 
     if is_not_blank(user.id, user_input):
         __process_request(user, session, user_input, commands)
+    else :
+        __process_input(user, session, 'TESTING')
 
     # Original working code
     # if is_not_blank(user.id, user_input):
@@ -65,7 +67,7 @@ def __process_individual_telegram_command(command):
     if is_not_blank(command):
         return COMMAND_HANDLERS.get(command, handle_invalid_command)(command)
     else:
-        return ''
+        return 'Error in processing individual telegram command'
 
 
 # def __process_dialogflow_input(user: User, session: Session, user_input):
