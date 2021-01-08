@@ -4,6 +4,7 @@ from api.telegram_api import send_message, send_message_with_options
 from beans.user import User
 from cache import get_current_order, add_to_order, clear_from_order
 from constants import *
+import requests
 from utils import default_if_blank, is_not_blank, get_items_from_response
 
 
@@ -178,6 +179,18 @@ def __update_module(user: User, intent_action, session_id):
     response = "Updating module:\n"
 
     return send_message(user, intent_action, session_id, response)
+
+
+# Fetches module list from NUSMODS then check if provided module_code is in the list
+def check_module_valid(module_code: str) -> bool:
+    acad_year = "2020-2021"
+    get_url = f"https://api.nusmods.com/v2/{acad_year}/moduleList.json"
+    modules_get = requests.get(get_url)
+    modules_objects = modules_get.json()
+    modules_list = [module["moduleCode"] for module in modules_objects]
+    return module_code in modules_list
+
+
 
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
