@@ -79,6 +79,15 @@
 from user import *
 
 
+# Returns given string if it is not None or blank, else return default value provided
+def default_if_blank(s, default):
+    if is_not_blank(s):
+        return s
+    else:
+        return default
+
+
+
 # Extracts user id from Telegram request
 def get_user_from_request(req_body):
     if 'message' in req_body:
