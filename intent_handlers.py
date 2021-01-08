@@ -192,7 +192,6 @@ def check_module_valid(module_code: str) -> bool:
     return module_code in modules_list
 
 
-
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
     'DEFAULT': __display_test,

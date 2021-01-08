@@ -19,9 +19,6 @@ def __show_default_greeting(user: User, command, session_id):
     return force_reply_after_year(user, command, session_id, "year")
 
 
-
-
-
 # Returns a bulleted list of features the bot offers
 def __show_help_menu(user: User, command, session_id):
     # response = "Hello there! I'm the bot for Ninja Cafe. Feel free to:\n\n"
