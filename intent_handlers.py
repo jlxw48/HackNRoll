@@ -8,10 +8,10 @@ from utils import default_if_blank, is_not_blank, get_items_from_response
 
 
 # Returns a generic fallback message
-def handle_invalid_intent(user: User, intent_result, session_id):
+def handle_invalid_intent(user: User, intent_action, session_id):
     response = "Sorry, I did not understand you. What were you saying?"
 
-    return send_message(user, intent_result.intent.display_name, session_id, response)
+    return send_message(user, intent_action, session_id, response)
 
 
 # Displays the response found in the intent result as is, with no options
@@ -139,26 +139,26 @@ def __show_ongoing_order_suggestions(user: User, intent_result, session_id):
                                      *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
 
 
-def __show_update_particulars_suggestions(user: User, intent_result, session_id):
-    response = intent_result.fulfillment_text
+def __show_update_particulars_suggestions(user: User, intent_action, session_id):
+    response = intent_action.fulfillment_text
 
-    return send_message_with_options(user, intent_result.intent.display_name, session_id, response,
+    return send_message_with_options(user, intent_action, session_id, response,
                                      *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
 
 
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
     # 'DISPLAY_DEFAULT_RESPONSE': __display_default_response,
-    'DISPLAY_DEFAULT_RESPONSE': "bye",
-    'DISPLAY_MAIN_GREETING': __display_main_greeting,
-    'SHOW_MENU_RESPONSE': __show_menu_response,
-    'SHOW_MENU_OPTIONS': __show_menu_options,
-    'SHOW_ORDERS': __show_orders,
-    'UPDATE_ORDER': __update_order,
-    'CONFIRM_ORDER': __confirm_order,
-    'CANCEL_ORDER': __cancel_order,
-    'SUBMIT_ORDER': __submit_order,
-    'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
+    # 'DISPLAY_DEFAULT_RESPONSE': "bye",
+    # 'DISPLAY_MAIN_GREETING': __display_main_greeting,
+    # 'SHOW_MENU_RESPONSE': __show_menu_response,
+    # 'SHOW_MENU_OPTIONS': __show_menu_options,
+    # 'SHOW_ORDERS': __show_orders,
+    # 'UPDATE_ORDER': __update_order,
+    # 'CONFIRM_ORDER': __confirm_order,
+    # 'CANCEL_ORDER': __cancel_order,
+    # 'SUBMIT_ORDER': __submit_order,
+    # 'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
     # 'SHOW_ONGOING_ORDER_SUGGESTIONS': __show_ongoing_order_suggestions,
     'UPDATE_PARTICULARS': __show_update_particulars_suggestions
 }
