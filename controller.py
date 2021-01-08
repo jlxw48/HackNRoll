@@ -40,7 +40,7 @@ def webhook():
     if is_not_blank(user.id, user_input) and len(commands) > 0:
         __process_request(user, session, user_input, commands)
     elif is_not_blank(user.id, user_input):
-        __process_input(user, session, 'TESTING')
+        __process_input(user, session, user_input)
 
 
     # # Original working code
@@ -75,9 +75,11 @@ def __process_individual_telegram_command(command):
 
 
 def __process_input(user: User, session: Session, user_input):
-    intent_action = 'TESTING'   # testing default
+    #intent_action = 'TESTING'   # testing default
 
-    #intent_action = default_if_blank(user_input, 'UPDATE_PARTICULARS')
+    intent_action = default_if_blank(user_input, 'TESTING')
+
+    print(intent_action)  #debugging
 
     if is_not_blank(intent_action):
         INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id)

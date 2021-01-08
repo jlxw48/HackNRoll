@@ -25,6 +25,13 @@ UPDATE_PARTICULARS_SUGGESTIONS = (
     "Year of Study",
     "Major"
 )
+HELP_SUGGESTIONS = (
+    "Help 1",
+    "Help 2",
+    "Help 3",
+    "Help 4",
+    "Help 5"
+)
 
 # Change the following to suit your project
 # DIALOGFLOW_PROJECT_ID = "ninja-van-dialogflow-devmy"

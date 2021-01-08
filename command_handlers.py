@@ -1,4 +1,4 @@
-from constants import UPDATE_PARTICULARS_SUGGESTIONS, DEFAULT_GREETING, MAIN_SUGGESTIONS
+from constants import UPDATE_PARTICULARS_SUGGESTIONS, DEFAULT_GREETING, MAIN_SUGGESTIONS, HELP_SUGGESTIONS
 from api.telegram_api import send_message_with_options
 
 from beans.user import User
@@ -16,13 +16,17 @@ def __show_default_greeting(user: User, command, session_id):
 
 # Returns a bulleted list of features the bot offers
 def __show_help_menu(user: User, command, session_id):
-    response = "Hello there! I'm the bot for Ninja Cafe. Feel free to:\n\n"
-    response += "- Order something from our menu\n"
-    response += "- Ask about what's available on the menu (or use '/menu')\n"
-    response += "- Check on your current orders with us\n"
-    response += "- Enquire about where your order is\n"
+    # response = "Hello there! I'm the bot for Ninja Cafe. Feel free to:\n\n"
+    # response += "- Order something from our menu\n"
+    # response += "- Ask about what's available on the menu (or use '/menu')\n"
+    # response += "- Check on your current orders with us\n"
+    # response += "- Enquire about where your order is\n"
+    #
+    # return response
 
-    return response
+    response = "Help is here!"
+    return send_message_with_options(user, command, session_id, response,
+                                     *HELP_SUGGESTIONS, row_width=1)
 
 
 # Returns a response string with menu items offered as a bulleted list
