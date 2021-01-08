@@ -24,7 +24,8 @@ def webhook():
     query = "SELECT * from test LIMIT 1"
     cursor.execute(query)
     row = cursor.fetchone()
-    return row;
+    print(row[0])
+    return row[0]
 
     # req_body = request.get_json()
     #
