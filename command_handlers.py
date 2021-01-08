@@ -27,7 +27,7 @@ def __show_particular_fields_for_command():
     response = "Please choose one of these particulars to update:\n"
     for x in range(1, len(list(UPDATE_PARTICULARS_SUGGESTIONS.values())) + 1):
         response += "{}: {}\n".format(x, list(UPDATE_PARTICULARS_SUGGESTIONS.values())[x - 1])
-    #response += "\nWhat would you like?\n"
+    response += "\nWhich would you like to update?\n"
 
     return response
 
