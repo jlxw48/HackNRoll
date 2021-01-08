@@ -8,7 +8,7 @@ from main import app
 from utils import \
     get_user_from_request, \
     get_user_input_from_request, default_if_blank, is_not_blank
-
+import psycopg2
 
 @app.route('/')
 def hello_world():

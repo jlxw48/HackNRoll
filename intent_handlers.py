@@ -141,7 +141,8 @@ def __show_ongoing_order_suggestions(user: User, intent_result, session_id):
 
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
-    'DISPLAY_DEFAULT_RESPONSE': __display_default_response,
+    # 'DISPLAY_DEFAULT_RESPONSE': __display_default_response,
+    'DISPLAY_DEFAULT_RESPONSE': "bye",
     'DISPLAY_MAIN_GREETING': __display_main_greeting,
     'SHOW_MENU_RESPONSE': __show_menu_response,
     'SHOW_MENU_OPTIONS': __show_menu_options,

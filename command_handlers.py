@@ -6,7 +6,7 @@ def handle_invalid_command(command):
 
 # Returns a greeting message with instructions on how to get started
 def __show_default_greeting():
-    return "hello i am tom"
+    return DEFAULT_GREETING
 
 # Returns a bulleted list of features the bot offers
 def __show_help_menu():
