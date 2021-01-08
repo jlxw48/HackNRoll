@@ -75,11 +75,11 @@ def __process_individual_telegram_command(command):
 
 
 def __process_input(user: User, session: Session, user_input):
-    #intent_action = 'TESTING'   # testing default
+    #intent_action = 'DEFAULT'   # testing default
 
-    intent_action = default_if_blank(user_input, 'TESTING')
+    intent_action = default_if_blank(user_input, 'DEFAULT')
 
-    print(intent_action)  #debugging
+    print('__process_input function intent action:' + intent_action)  #debugging
 
     if is_not_blank(intent_action):
         INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id)

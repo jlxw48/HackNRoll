@@ -3,7 +3,7 @@ from api import order_api
 from api.telegram_api import send_message, send_message_with_options
 from beans.user import User
 from cache import get_current_order, add_to_order, clear_from_order
-from constants import MENU_CODES_TO_OPTIONS, DEFAULT_ERROR_MESSAGE, MAIN_SUGGESTIONS, UPDATE_PARTICULARS_SUGGESTIONS
+from constants import *
 from utils import default_if_blank, is_not_blank, get_items_from_response
 
 
@@ -145,11 +145,39 @@ def __display_test(user: User, intent_action, session_id):
 
 
 def __show_update_particulars_suggestions(user: User, intent_action, session_id):
-    response = "UPDATE_PARTICULARS"
+    response = "Please choose one of these particulars to update:\n"
 
     return send_message_with_options(user, intent_action, session_id, response,
-                                     *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
+                                     *UPDATE_PARTICULARS_OPTIONS, row_width=1)
 
+
+def __update_name(user: User, intent_action, session_id):
+    response = "Updating name:\n"
+
+    return send_message(user, intent_action, session_id, response)
+
+
+def __update_gender(user: User, intent_action, session_id):
+    response = "Updating gender:\n"
+
+    return send_message(user, intent_action, session_id, response)
+
+
+def __update_year(user: User, intent_action, session_id):
+    response = "Updating year:\n"
+
+    return send_message(user, intent_action, session_id, response)
+
+
+def __update_faculty(user: User, intent_action, session_id):
+    response = "Updating faculty:\n"
+
+    return send_message(user, intent_action, session_id, response)
+
+def __update_module(user: User, intent_action, session_id):
+    response = "Updating module:\n"
+
+    return send_message(user, intent_action, session_id, response)
 
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
@@ -165,6 +193,16 @@ INTENT_HANDLERS = {
     # 'SUBMIT_ORDER': __submit_order,
     # 'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
     # 'SHOW_ONGOING_ORDER_SUGGESTIONS': __show_ongoing_order_suggestions,
-    'TESTING': __display_test,
-    'UPDATE_PARTICULARS': __show_update_particulars_suggestions
+    'DEFAULT': __display_test,
+    'Update my particulars': __show_update_particulars_suggestions,
+    'Please update your name:': __update_name,
+    'Please update your gender:': __update_gender,
+    "Please update your year of study:": __update_year,
+    "Please update your faculty:": __update_faculty,
+    "Name": __update_name,
+    "Gender": __update_gender,
+    "Year of Study": __update_year,
+    "Faculty": __update_faculty,
+    "Module": __update_module,
+
 }
