@@ -36,10 +36,15 @@ def __show_particular_fields_for_command(user: User, command, session_id):
 
 
 # Dictionary of command actions mapped to a corresponding function that will be executed when user submits said command
+# COMMAND_HANDLERS = {
+#     'start': lambda ignored: __show_default_greeting(),
+#     'help': lambda ignored: __show_help_menu(),
+#     'update': lambda ignored: __show_particular_fields_for_command()
+# }
 COMMAND_HANDLERS = {
-    'start': lambda ignored: __show_default_greeting(),
-    'help': lambda ignored: __show_help_menu(),
-    'update': lambda ignored: __show_particular_fields_for_command()
+    'start': __show_default_greeting,
+    'help':  __show_help_menu,
+    'update':  __show_particular_fields_for_command
 }
 
 
