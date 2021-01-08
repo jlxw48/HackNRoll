@@ -55,4 +55,4 @@ QUERIES = {
 # Change the following to suit your project
 # DIALOGFLOW_PROJECT_ID = "ninja-van-dialogflow-devmy"
 # GOOGLE_SERVICE_ACCOUNT_FILE_PATH = "ninja-van-dialogflow-devmy.json"
-TELEGRAM_API_TOKEN = "1535611773:AAFom07aPMU66l7DgYqNjUK8K9UZhbKCoQo"
+TELEGRAM_API_TOKEN = "1545062464:AAEWyA_7SE7bsYilxPRfLg5oNSTDZKW4bZo"

@@ -213,7 +213,9 @@ def __create_user(user: User, intent_action, session_id, lst):
     query = QUERIES.get("INSERT_USER")
 
     cursor = conn.cursor()
-    cursor.execute(query, tuple(lst))  # need to pass in the data here in the 2nd param
+    print(lst)
+    new_lst = [int(lst[i]) if (i == 0 or i == 3) else lst[i] for i in range(len(lst))]
+    cursor.execute(query, new_lst)  # need to pass in the data here in the 2nd param
     conn.commit()
     cursor.close()
 

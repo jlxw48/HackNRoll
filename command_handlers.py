@@ -14,7 +14,8 @@ def __show_default_greeting(user: User, command, session_id):
     # return DEFAULT_GREETING
 
     msg = send_message(user, command, session_id, DEFAULT_GREETING)
-    bot.register_next_step_handler(msg, process_name_step)
+    return msg
+    # bot.register_next_step_handler(msg, process_name_step)
     # return force_reply_after_name(user, command, session_id, "name")
 
 
@@ -60,7 +61,7 @@ def __show_new_options(user: User, command, session_id):
 #     'update': lambda ignored: __show_particular_fields_for_command()
 # }
 COMMAND_HANDLERS = {
-    # 'start': __show_default_greeting,
+    'start': __show_default_greeting,
     'help': __show_help_menu,
     'update': __show_particular_fields_for_command,
     'new': __show_new_options

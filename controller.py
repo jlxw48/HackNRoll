@@ -40,17 +40,20 @@ def webhook():
     print('user_input:' + user_input)
     print(commands)
 
-    if len(commands) > 0 and commands[0] == 'start':
-        # lst = user_input.split(" ")
-        # input = lst[1]
-        lst = user_input.split(";")
-        print(lst)
-        __process_start(user, session, lst)
+    # if len(commands) > 0 and commands[0] == 'start':
+    #     # lst = user_input.split(" ")
+    #     # input = lst[1]
+    #     lst = user_input.split(";")
+    #     print(lst)
+    #     __process_start(user, session, lst)
 
-    elif is_not_blank(user.id, user_input) and len(commands) > 0:
+    if is_not_blank(user.id, user_input) and len(commands) > 0:
         __process_request(user, session, user_input, commands)
     elif is_not_blank(user.id, user_input):
-        __process_input(user, session, user_input)
+        if ';' in user_input:
+            __process_start(user, session, user_input)
+        else:
+            __process_input(user, session, user_input)
 
     # # Original working code
     # if is_not_blank(user.id, user_input):
