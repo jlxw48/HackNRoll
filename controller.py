@@ -27,7 +27,7 @@ def webhook():
     if is_not_blank(user.id, user_input):
         __process_dialogflow_input(user, session, user_input)
 
-    return ''
+    return 'This works!'
 
 def __process_dialogflow_input(user: User, session: Session, user_input):
     intent_result = detect_intent_via_text(session.id, user_input)
