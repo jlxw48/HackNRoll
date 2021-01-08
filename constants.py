@@ -22,7 +22,7 @@ NEW_OPTIONS = (
     "Looking for module mates!",
 )
 UPDATE_OPTIONS = (
-    "Update my particulars"
+    "Update my particulars",
 )
 UPDATE_PARTICULARS_OPTIONS = (
     "Name",
