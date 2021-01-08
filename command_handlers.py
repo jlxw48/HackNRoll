@@ -100,7 +100,7 @@ def __find_mod(user, user_input):
             print(query_result)
             for i in range(5):
                 if i < len(query_result):
-                    returnText += f"@{query_result[i][1]}\n"
+                    returnText += f"@{query_result[i][3]}\n"
             returnText += "\nWe have also added you to the database to be searched by other users for this module."
 
             cursor.execute("INSERT INTO soscoders.request VALUES (%s, %s);", [user.id, module_code])
