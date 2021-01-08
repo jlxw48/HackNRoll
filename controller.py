@@ -107,7 +107,7 @@ def __process_input(user: User, session: Session, user_input):
 
 def __process_filter(user: User, session: Session, input):
     temp_lst = input.split("-")
-    lst = [temp_lst[0].split(":")[1].strip(), temp_lst[1].split(":").strip()]
+    lst = [temp_lst[0].split(":")[1].strip(), temp_lst[1].split(":")[1].strip()]
     INTENT_HANDLERS.get("filter", handle_invalid_intent)(user, "filter", session.id, lst)
 
 def __process_start(user: User, session: Session, lst):
