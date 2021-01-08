@@ -48,7 +48,7 @@ QUERIES = {
     "GET_5_USERS_FAC_GENDER": "SELECT * FROM users WHERE faculty = %s AND gender = %s LIMIT 5;",
     "GET_5_USERS_YEAR_GENDER": "SELECT * FROM users WHERE study_year = %s AND gender = %s LIMIT 5;",
     "GET_5_USERS_FAC_YEAR_GENDER": "SELECT * FROM users faculty = %s AND study_year = %s AND gender = %s LIMIT 5;",
-    "INSERT_USER": "SET search_path TO soscoders; INSERT INTO users(telegram_id, faculty, study_year, gender) VALUES(%s, %s, %s, %s);",
+    "INSERT_USER": "SET search_path TO soscoders; INSERT INTO users(telegram_id, telegram_username, faculty, study_year, gender) VALUES(%s, %s, %s, %s, %s);",
     "INSERT_REQUEST": "INSERT INTO request(id, module) VALUES(%s, %s);"
 }
 
