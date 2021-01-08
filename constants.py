@@ -20,7 +20,10 @@ MAIN_SUGGESTIONS = (
 UPDATE_PARTICULARS_SUGGESTIONS = (
     "Name",
     "Age",
-    "Gender"
+    "Gender",
+    "Module",
+    "Year of Study",
+    "Major"
 )
 
 # Change the following to suit your project

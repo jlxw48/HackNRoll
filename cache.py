@@ -63,10 +63,5 @@ def __add_item_to_orders(orders, item: Item):
     return orders
 
 
-def __session_key(user: User):
-    # FILL IN CODE
-    return
-
-
 def __current_orders_key(user: User, session_id):
     return "orders_{}_{}".format(default_if_blank(user.id, ''), session_id)
