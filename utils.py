@@ -56,3 +56,13 @@ def get_items_from_response(intent_result):
             entries.append(Item(captured_item['menu-item'], 1))
 
     return entries
+
+
+# Extracts user's commands from Telegram request
+def get_user_command_from_request(req_body):
+    if 'message' in req_body and 'entities' in req_body['message']:
+        text = req_body.get('message').get('text')
+        return set(map(lambda entity: text[entity['offset'] + 1: entity['offset'] + entity['length']],
+                       filter(lambda entity: entity['type'] == 'bot_command', req_body['message']['entities'])))
+    else:
+        return {}
