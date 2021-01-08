@@ -1,5 +1,5 @@
 from constants import *
-from api.telegram_api import send_message_with_options
+from api.telegram_api import *
 
 from beans.user import User
 
@@ -12,8 +12,13 @@ def handle_invalid_command(user: User, command, session_id):
 # Returns a greeting message with instructions on how to get started
 def __show_default_greeting(user: User, command, session_id):
     # return DEFAULT_GREETING
-    return send_message_with_options(user, command, session_id, DEFAULT_GREETING,
-                                     *START_OPTIONS, row_width=1)
+
+    force_reply_after_name(user, command, session_id, DEFAULT_GREETING)
+    force_reply_after_gender(user, command, session_id, DEFAULT_GREETING)
+    force_reply_after_year(user, command, session_id, DEFAULT_GREETING)
+    return send_message(user, command, session_id, DEFAULT_GREETING)
+
+
 
 
 # Returns a bulleted list of features the bot offers

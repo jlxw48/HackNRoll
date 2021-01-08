@@ -10,7 +10,7 @@ MENU_CODES_TO_OPTIONS = {
     "MENU_ITEM_STEAK": "Minute Steak Frites",
     "MENU_ITEM_SALAD": "Caesar Salad"
 }
-DEFAULT_GREETING = "Hello! Select one of the options to get started:) (Backup: Say \'hi\')"
+DEFAULT_GREETING = "Hello! Please start by updating your particulars :) \n (Separate each information using ',')"
 DEFAULT_ERROR_MESSAGE = 'Sorry, something went wrong. Please try again later!'
 START_OPTIONS = (
     "Please update your name:",
@@ -22,7 +22,7 @@ NEW_OPTIONS = (
     "Looking for module mates!",
 )
 UPDATE_OPTIONS = (
-    "Update my particulars"
+    "Update my particulars",
 )
 UPDATE_PARTICULARS_OPTIONS = (
     "Name",
