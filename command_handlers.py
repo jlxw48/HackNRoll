@@ -28,11 +28,14 @@ def __show_help_menu(user: User, command, session_id):
 # Returns a response string with menu items offered as a bulleted list
 def __show_particular_fields_for_command(user: User, command, session_id):
     response = "Please choose one of these particulars to update:\n"
-    for x in range(1, len(list(UPDATE_PARTICULARS_SUGGESTIONS.values())) + 1):
-        response += "{}: {}\n".format(x, list(UPDATE_PARTICULARS_SUGGESTIONS.values())[x - 1])
-    response += "\nWhich would you like to update?\n"
+    # for x in range(1, len(list(UPDATE_PARTICULARS_SUGGESTIONS.values())) + 1):
+    #     response += "{}: {}\n".format(x, list(UPDATE_PARTICULARS_SUGGESTIONS.values())[x - 1])
+    # response += "\nWhich would you like to update?\n"
+    #
+    # return response
 
-    return response
+    return send_message_with_options(user, command, session_id, response,
+                                     *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
 
 
 # Dictionary of command actions mapped to a corresponding function that will be executed when user submits said command
