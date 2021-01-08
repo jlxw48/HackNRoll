@@ -29,15 +29,15 @@ def send_message_with_options(user: User, state, session_id, response, *options,
 def force_reply_after_name(user: User, state, session_id, response):
     # ForceReply: forces a user to reply to a message
     # Takes an optional selective argument (True/False, default False)
-    msg = "{} received\nPlease input your gender now:".format(response)
+    msg = "Name received\nPlease input your gender now:"
     markup = types.ForceReply(selective=False)
-    return bot.send_message(user.id, msg, reply_markup=markup)
+    return bot.send_message(user.id, response, reply_markup=markup)
 
 
 def force_reply_after_gender(user: User, state, session_id, response):
     # ForceReply: forces a user to reply to a message
     # Takes an optional selective argument (True/False, default False)
-    msg = "{} received\nPlease input your year now:".format(response)
+    msg = "Gender received\nPlease input your year now:"
     markup = types.ForceReply(selective=False)
     return bot.send_message(user.id, msg, reply_markup=markup)
 
@@ -45,7 +45,7 @@ def force_reply_after_gender(user: User, state, session_id, response):
 def force_reply_after_year(user: User, state, session_id, response):
     # ForceReply: forces a user to reply to a message
     # Takes an optional selective argument (True/False, default False)
-    msg = "{} received\nPlease input your faculty now:".format(response)
+    msg = "Year received\nPlease input your faculty now:"
     markup = types.ForceReply(selective=False)
     return bot.send_message(user.id, msg, reply_markup=markup)
 
