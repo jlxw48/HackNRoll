@@ -213,7 +213,7 @@ def __create_user(user: User, intent_action, session_id, lst):
     query = QUERIES.get("INSERT_USER")
 
     cursor = conn.cursor()
-    cursor.execute(query, lst)  # need to pass in the data here in the 2nd param
+    cursor.execute(query, tuple(lst))  # need to pass in the data here in the 2nd param
     conn.commit()
     cursor.close()
 
