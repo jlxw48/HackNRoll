@@ -15,8 +15,8 @@ import psycopg2
 from api.telegram_api import send_message
 from command_handlers import COMMAND_HANDLERS, handle_invalid_command
 
-# DATABASE_URL = os.environ["DATABASE_URL"]
 
+# DATABASE_URL = os.environ["DATABASE_URL"]
 
 
 @app.route('/')
@@ -36,11 +36,16 @@ def webhook():
     user_input = get_user_input_from_request(req_body)
     commands = get_user_command_from_request(req_body)  # new
 
-    if is_not_blank(user.id, user_input) and len(commands) > 0:
+    if len(commands) > 0 and commands[0] == 'start':
+        lst = user_input.split(" ")
+        input = lst[1]
+        lst = input.split(";")
+        __process_start(user, session, lst)
+
+    elif is_not_blank(user.id, user_input) and len(commands) > 0:
         __process_request(user, session, user_input, commands)
     elif is_not_blank(user.id, user_input):
         __process_input(user, session, user_input)
-
 
     # # Original working code
     # if is_not_blank(user.id, user_input):
@@ -65,21 +70,27 @@ def __process_telegram_commands(user: User, session: Session, commands):
     for command in commands:
         COMMAND_HANDLERS.get(command, handle_invalid_command)(user, command, session.id)
 
+
 def __process_individual_telegram_command(command):
     if is_not_blank(command):
         return COMMAND_HANDLERS.get(command, handle_invalid_command)(command)
     else:
         return 'Error in processing individual telegram command'
 
+
 def __process_input(user: User, session: Session, user_input):
-    intent_action = 'DEFAULT'   # testing default
+    # intent_action = 'DEFAULT'  # testing default
 
-    # intent_action = default_if_blank(user_input, 'DEFAULT')
+    intent_action = default_if_blank(user_input, 'DEFAULT')
 
-    print('__process_input function intent action:' + intent_action)  #debugging
+    print('__process_input function intent action:' + intent_action)  # debugging
 
     if is_not_blank(intent_action):
-        INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id)
+        INTENT_HANDLERS.get(intent_action, handle_invalid_intent)(user, intent_action, session.id, user_input)
+
+
+def __process_start(user: User, session: Session, lst):
+    INTENT_HANDLERS.get("start", handle_invalid_intent)(user, "start", session.id, lst)
 
 # from flask import request
 #

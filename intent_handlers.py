@@ -11,6 +11,7 @@ import psycopg2
 DATABASE_URL = "postgres://wetquihchacmku:139b7d3f9599dbd0e1af9191d9cbafccf47bf5c152dacbd25ad72a55ff2b758b@ec2-35-168-54-239.compute-1.amazonaws.com:5432/dcdivls3vthr4q"
 conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
+
 #
 # # Displays the response found in the intent result as is, with no options
 # def __display_default_response(user: User, intent_result, session_id):
@@ -137,13 +138,13 @@ conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 #                                      *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
 
 # Returns a generic fallback message
-def handle_invalid_intent(user: User, intent_action, session_id):
+def handle_invalid_intent(user: User, intent_action, session_id, user_input):
     response = "Sorry, I did not understand you. What were you saying?"
 
     return send_message(user, intent_action, session_id, response)
 
 
-def __display_test(user: User, intent_action, session_id):
+def __display_test(user: User, intent_action, session_id, user_input):
     response = "display_test function"
 
     query = "SELECT * FROM test;"
@@ -161,38 +162,38 @@ def __display_test(user: User, intent_action, session_id):
     return send_message(user, intent_action, session_id, response)
 
 
-def __show_update_particulars_suggestions(user: User, intent_action, session_id):
+def __show_update_particulars_suggestions(user: User, intent_action, session_id, user_input):
     response = "Please choose one of these particulars to update:\n"
 
     return send_message_with_options(user, intent_action, session_id, response,
                                      *UPDATE_PARTICULARS_OPTIONS, row_width=1)
 
 
-def __update_name(user: User, intent_action, session_id):
+def __update_name(user: User, intent_action, session_id, user_input):
     response = "Updating name:\n"
 
     return send_message(user, intent_action, session_id, response)
 
 
-def __update_gender(user: User, intent_action, session_id):
+def __update_gender(user: User, intent_action, session_id, user_input):
     response = "Updating gender:\n"
 
     return send_message(user, intent_action, session_id, response)
 
 
-def __update_year(user: User, intent_action, session_id):
+def __update_year(user: User, intent_action, session_id, user_input):
     response = "Updating year:\n"
 
     return send_message(user, intent_action, session_id, response)
 
 
-def __update_faculty(user: User, intent_action, session_id):
+def __update_faculty(user: User, intent_action, session_id, user_input):
     response = "Updating faculty:\n"
 
     return send_message(user, intent_action, session_id, response)
 
 
-def __update_module(user: User, intent_action, session_id):
+def __update_module(user: User, intent_action, session_id, user_input):
     response = "Updating module:\n"
 
     return send_message(user, intent_action, session_id, response)
@@ -208,18 +209,19 @@ def check_module_valid(module_code: str) -> bool:
     return module_code in modules_list
 
 
-def __create_user(user: User, intent_action, session_id):
+def __create_user(user: User, intent_action, session_id, lst):
     query = QUERIES.get("INSERT_USER")
 
     cursor = conn.cursor()
-    cursor.execute(query, ('my_id', 'FASS', 1, 'male')) # need to pass in the data here in the 2nd param
+    cursor.execute(query, lst)  # need to pass in the data here in the 2nd param
     conn.commit()
     cursor.close()
 
     response = "Profile created!"
     return send_message(user, intent_action, session_id, response)
 
-def __get_friends(user: User, intent_action, session_id):
+
+def __get_friends(user: User, intent_action, session_id, user_input):
     response = ""
 
     query = "SELECT * FROM test;"
@@ -236,6 +238,7 @@ def __get_friends(user: User, intent_action, session_id):
 
     return send_message(user, intent_action, session_id, response)
 
+
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
     'DEFAULT': __display_test,
@@ -249,6 +252,6 @@ INTENT_HANDLERS = {
     "Year of Study": __update_year,
     "Faculty": __update_faculty,
     "Module": __update_module,
-    'TESTING': __create_user,
+    'start': __create_user,
     'UPDATE_PARTICULARS': __show_update_particulars_suggestions
 }
