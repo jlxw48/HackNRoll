@@ -1,5 +1,5 @@
 from api import order_api
-from api.dialogflow_api import detect_intent_via_event
+# from api.dialogflow_api import detect_intent_via_event
 from api.telegram_api import send_message, send_message_with_options
 from beans.user import User
 from cache import get_current_order, add_to_order, clear_from_order
@@ -103,7 +103,7 @@ def __confirm_order(user: User, intent_result, session_id):
         return send_message_with_options(user, intent_result.intent.display_name, session_id, response,
                                          "Yes, submit my order!", "Nah, cancel it")
     else:
-        detect_intent_via_event(session_id, 'NINJA_CAFE_MAIN_EVENT')
+        # detect_intent_via_event(session_id, 'NINJA_CAFE_MAIN_EVENT')
 
         response = "Oops, you don't have any items in your order. Let me know how else I can help you!"
 

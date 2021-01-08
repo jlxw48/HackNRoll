@@ -19,5 +19,4 @@ CREATE TABLE request(
     id VARCHAR references user(telegram_id),
     module VARCHAR NOT NULL,
     PRIMARY KEY(id, module)
-)
-
+);
