@@ -10,24 +10,33 @@ from utils import \
     get_user_input_from_request, default_if_blank, is_not_blank
 import psycopg2
 
+DATABASE_URL = os.environ["DATABASE_URL"]
+
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    req_body = request.get_json()
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cursor = conn.cursor()
+    query = "SELECT * from test LIMIT 1"
+    cursor.execute(query)
+    row = cursor.fetchone()
+    return row;
 
-    if req_body is None:
-        return "ERROR: No request body", 400
-
-    user = get_user_from_request(req_body)
-    session = get_current_session(user)
-    user_input = get_user_input_from_request(req_body)
-    if is_not_blank(user.id, user_input):
-        __process_dialogflow_input(user, session, user_input)
-
-    return 'This works!'
+    # req_body = request.get_json()
+    #
+    # if req_body is None:
+    #     return "ERROR: No request body", 400
+    #
+    # user = get_user_from_request(req_body)
+    # session = get_current_session(user)
+    # user_input = get_user_input_from_request(req_body)
+    # if is_not_blank(user.id, user_input):
+    #     __process_dialogflow_input(user, session, user_input)
+    #
+    # return 'This works!'
 
 def __process_dialogflow_input(user: User, session: Session, user_input):
     intent_result = detect_intent_via_text(session.id, user_input)
