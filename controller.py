@@ -15,14 +15,14 @@ DATABASE_URL = os.environ["DATABASE_URL"]
 conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 cursor = conn.cursor()
 
+
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
 
+
 @app.route('/webhook', methods=['POST'])
 def webhook():
-
-
     req_body = request.get_json()
 
     if req_body is None:
@@ -35,6 +35,7 @@ def webhook():
         __process_dialogflow_input(user, session, user_input)
 
     return 'This works!'
+
 
 def __process_dialogflow_input(user: User, session: Session, user_input):
     intent_result = detect_intent_via_text(session.id, user_input)

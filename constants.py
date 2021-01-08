@@ -10,17 +10,17 @@ MENU_CODES_TO_OPTIONS = {
     "MENU_ITEM_STEAK": "Minute Steak Frites",
     "MENU_ITEM_SALAD": "Caesar Salad"
 }
-DEFAULT_GREETING = 'Welcome to Ninja Cafe :) To get started, just say \'hi\' or let me know what you need!'
+DEFAULT_GREETING = "Hello! Select one of the options to get started:) (Backup: Say \'hi\')"
 DEFAULT_ERROR_MESSAGE = 'Sorry, something went wrong. Please try again later!'
 MAIN_SUGGESTIONS = (
-    "I want to order something",
-    "What is on your menu?",
-    "What are my current orders?",
-    "Where is my order?",
+    "Looking for friends!",
+    "Looking for module mates!",
+    "Update my particulars",
 )
-ONGOING_ORDER_SUGGESTIONS = (
-    "What is on your menu?",
-    "I'm done ordering!"
+UPDATE_PARTICULARS_SUGGESTIONS = (
+    "Name",
+    "Age",
+    "Gender"
 )
 
 # Change the following to suit your project

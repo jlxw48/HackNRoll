@@ -18,6 +18,7 @@ def get_user_from_request(req_body):
     else:
         return ''
 
+
 # Extracts user's name from Telegram request
 def __get_req_from_name(req_from):
     first_name = req_from.get('first_name')
@@ -25,9 +26,10 @@ def __get_req_from_name(req_from):
     if is_not_blank(first_name, last_name):
         return first_name + ' ' + last_name
     elif is_not_blank(first_name):
-        return first_name # Return only first name if last name is not available
+        return first_name  # Return only first name if last name is not available
     else:
         return ''
+
 
 # Extracts user's input (text or button click) from Telegram request
 def get_user_input_from_request(req_body):
@@ -36,10 +38,10 @@ def get_user_input_from_request(req_body):
     else:
         return ''
 
+
 # Checks where one or more string params provided are None or blank
 def is_not_blank(*string):
     return all(s is not None and s for s in string)
-
 
 
 # Extracts list of Item objects from intent result that were captured from response

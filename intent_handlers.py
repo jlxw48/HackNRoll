@@ -3,7 +3,7 @@ from api import order_api
 from api.telegram_api import send_message, send_message_with_options
 from beans.user import User
 from cache import get_current_order, add_to_order, clear_from_order
-from constants import MENU_CODES_TO_OPTIONS, DEFAULT_ERROR_MESSAGE, MAIN_SUGGESTIONS, ONGOING_ORDER_SUGGESTIONS
+from constants import MENU_CODES_TO_OPTIONS, DEFAULT_ERROR_MESSAGE, MAIN_SUGGESTIONS, UPDATE_PARTICULARS_SUGGESTIONS
 from utils import default_if_blank, is_not_blank, get_items_from_response
 
 
@@ -57,7 +57,7 @@ def __show_orders(user: User, intent_result, session_id):
     if len(orders) > 0:
         response = "Here are your current orders:\n"
         for x in range(1, len(orders) + 1):
-            response += "{}. {}\n<Placed @ {}>\n\n"\
+            response += "{}. {}\n<Placed @ {}>\n\n" \
                 .format(x, orders[x - 1]['order_description'], orders[x - 1]['timestamp'])
         response += "\nHow else can I help you?"
 
@@ -136,21 +136,29 @@ def __show_ongoing_order_suggestions(user: User, intent_result, session_id):
     response = intent_result.fulfillment_text
 
     return send_message_with_options(user, intent_result.intent.display_name, session_id, response,
-                                     *ONGOING_ORDER_SUGGESTIONS, row_width=1)
+                                     *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
+
+
+def __show_update_particulars_suggestions(user: User, intent_result, session_id):
+    response = intent_result.fulfillment_text
+
+    return send_message_with_options(user, intent_result.intent.display_name, session_id, response,
+                                     *UPDATE_PARTICULARS_SUGGESTIONS, row_width=1)
 
 
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
     # 'DISPLAY_DEFAULT_RESPONSE': __display_default_response,
-    'DISPLAY_DEFAULT_RESPONSE': "bye",
-    'DISPLAY_MAIN_GREETING': __display_main_greeting,
-    'SHOW_MENU_RESPONSE': __show_menu_response,
-    'SHOW_MENU_OPTIONS': __show_menu_options,
-    'SHOW_ORDERS': __show_orders,
-    'UPDATE_ORDER': __update_order,
-    'CONFIRM_ORDER': __confirm_order,
-    'CANCEL_ORDER': __cancel_order,
-    'SUBMIT_ORDER': __submit_order,
-    'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
-    'SHOW_ONGOING_ORDER_SUGGESTIONS': __show_ongoing_order_suggestions
+    # 'DISPLAY_DEFAULT_RESPONSE': "bye",
+    # 'DISPLAY_MAIN_GREETING': __display_main_greeting,
+    # 'SHOW_MENU_RESPONSE': __show_menu_response,
+    # 'SHOW_MENU_OPTIONS': __show_menu_options,
+    # 'SHOW_ORDERS': __show_orders,
+    # 'UPDATE_ORDER': __update_order,
+    # 'CONFIRM_ORDER': __confirm_order,
+    # 'CANCEL_ORDER': __cancel_order,
+    # 'SUBMIT_ORDER': __submit_order,
+    # 'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
+    # 'SHOW_ONGOING_ORDER_SUGGESTIONS': __show_ongoing_order_suggestions,
+    "UPDATE_PARTICULARS": __show_update_particulars_suggestions
 }
