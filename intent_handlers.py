@@ -6,7 +6,10 @@ from cache import get_current_order, add_to_order, clear_from_order
 from constants import *
 import requests
 from utils import default_if_blank, is_not_blank, get_items_from_response
+import psycopg2
 
+DATABASE_URL = "postgres://wetquihchacmku:139b7d3f9599dbd0e1af9191d9cbafccf47bf5c152dacbd25ad72a55ff2b758b@ec2-35-168-54-239.compute-1.amazonaws.com:5432/dcdivls3vthr4q"
+conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
 #
 # # Displays the response found in the intent result as is, with no options
@@ -142,6 +145,19 @@ def handle_invalid_intent(user: User, intent_action, session_id):
 
 def __display_test(user: User, intent_action, session_id):
     response = "display_test function"
+
+    query = "SELECT * FROM test;"
+    cursor = conn.cursor()
+    cursor.execute(query)
+    row = cursor.fetchone()
+    if row is not None:
+        while row is not None:
+            print(row)
+            row = cursor.fetchone()
+    else:
+        print("no users in database")
+    cursor.close()
+
     return send_message(user, intent_action, session_id, response)
 
 
@@ -192,6 +208,33 @@ def check_module_valid(module_code: str) -> bool:
     return module_code in modules_list
 
 
+def __create_user(user: User, intent_action, session_id):
+    query = QUERIES.get("INSERT_USER")
+
+    cursor = conn.cursor()
+    cursor.execute(query, ('my_id', 'FASS', 1, 'male')) # need to pass in the data here in the 2nd param
+    conn.commit()
+    cursor.close()
+
+    response = "Profile created!"
+    return send_message(user, intent_action, session_id, response)
+
+def __get_friends(user: User, intent_action, session_id):
+    response = ""
+
+    query = "SELECT * FROM test;"
+    cursor = conn.cursor()
+    cursor.execute(query)
+    row = cursor.fetchone()
+    if row is not None:
+        while row is not None:
+            print(row)
+            row = cursor.fetchone()
+    else:
+        print("no users in database")
+    cursor.close()
+
+    return send_message(user, intent_action, session_id, response)
 
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
@@ -206,5 +249,6 @@ INTENT_HANDLERS = {
     "Year of Study": __update_year,
     "Faculty": __update_faculty,
     "Module": __update_module,
-
+    'TESTING': __create_user,
+    'UPDATE_PARTICULARS': __show_update_particulars_suggestions
 }
