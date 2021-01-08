@@ -103,4 +103,4 @@ curl -L -X POST "https://api.telegram.org/bot1234567890:AAG2g-bIHq4_JDWSINaOrhDw
   - Test that your endpoint is returning a valid response for the webhook with the following 
 ```
 curl -L -X POST "https://d6e3134b7be7.ngrok.io/webhook"
-```# HackNRoll
+```

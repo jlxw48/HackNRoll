@@ -14,10 +14,10 @@ def default_if_blank(s, default):
 def get_user_from_request(req_body):
     if 'callback_query' in req_body:
         req_from = req_body.get('callback_query', {}).get('from', {})
-        return User(req_from.get('id', ''), __get_req_from_name(req_from), req_from.get('username', ''))
+        return User(req_from.get('id', ''), __get_req_from_name(req_from))
     elif 'message' in req_body:
         req_from = req_body.get('message', {}).get('from', {})
-        return User(req_from.get('id', ''), __get_req_from_name(req_from), req_from.get('username', ''))
+        return User(req_from.get('id', ''), __get_req_from_name(req_from))
     else:
         return ''
 
