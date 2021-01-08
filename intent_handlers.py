@@ -174,25 +174,15 @@ def __update_faculty(user: User, intent_action, session_id):
 
     return send_message(user, intent_action, session_id, response)
 
+
 def __update_module(user: User, intent_action, session_id):
     response = "Updating module:\n"
 
     return send_message(user, intent_action, session_id, response)
 
+
 # Dictionary of intent actions mapped to a corresponding function that will be executed when the intent is matched
 INTENT_HANDLERS = {
-    # 'DISPLAY_DEFAULT_RESPONSE': __display_default_response,
-    # 'DISPLAY_DEFAULT_RESPONSE': "bye",
-    # 'DISPLAY_MAIN_GREETING': __display_main_greeting,
-    # 'SHOW_MENU_RESPONSE': __show_menu_response,
-    # 'SHOW_MENU_OPTIONS': __show_menu_options,
-    # 'SHOW_ORDERS': __show_orders,
-    # 'UPDATE_ORDER': __update_order,
-    # 'CONFIRM_ORDER': __confirm_order,
-    # 'CANCEL_ORDER': __cancel_order,
-    # 'SUBMIT_ORDER': __submit_order,
-    # 'SHOW_MAIN_SUGGESTIONS': __show_main_suggestions,
-    # 'SHOW_ONGOING_ORDER_SUGGESTIONS': __show_ongoing_order_suggestions,
     'DEFAULT': __display_test,
     'Update my particulars': __show_update_particulars_suggestions,
     'Please update your name:': __update_name,

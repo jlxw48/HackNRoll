@@ -26,6 +26,28 @@ def send_message_with_options(user: User, state, session_id, response, *options,
     return bot.send_message(user.id, response, reply_markup=markup)
 
 
+def force_reply_after_name(user: User, state, session_id, response):
+    # ForceReply: forces a user to reply to a message
+    # Takes an optional selective argument (True/False, default False)
+    msg = "{} received\nPlease input your gender now:".format(response)
+    markup = types.ForceReply(selective=False)
+    return bot.send_message(user.id, msg, reply_markup=markup)
+
+
+def force_reply_after_gender(user: User, state, session_id, response):
+    # ForceReply: forces a user to reply to a message
+    # Takes an optional selective argument (True/False, default False)
+    msg = "{} received\nPlease input your year now:".format(response)
+    markup = types.ForceReply(selective=False)
+    return bot.send_message(user.id, msg, reply_markup=markup)
+
+
+def force_reply_after_year(user: User, state, session_id, response):
+    # ForceReply: forces a user to reply to a message
+    # Takes an optional selective argument (True/False, default False)
+    msg = "{} received\nPlease input your faculty now:".format(response)
+    markup = types.ForceReply(selective=False)
+    return bot.send_message(user.id, msg, reply_markup=markup)
 
 
 # import telebot
