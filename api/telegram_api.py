@@ -26,31 +26,57 @@ def send_message_with_options(user: User, state, session_id, response, *options,
     return bot.send_message(user.id, response, reply_markup=markup)
 
 
-def force_reply_after_name(user: User, state, session_id, response):
-    # ForceReply: forces a user to reply to a message
-    # Takes an optional selective argument (True/False, default False)
-    msg = "Name received\nPlease input your gender now:"
-    markup = types.ForceReply(selective=False)
-    bot.send_message(user.id, response, reply_markup=markup)
-    force_reply_after_gender(user, state, session_id, "gender")
+def process_name_step(message):
+    try:
+        msg = bot.reply_to(message, 'Name received\nPlease input your gender now:')
+        bot.register_next_step_handler(msg, process_gender_step)
+    except Exception as e:
+        bot.reply_to(message, 'oooops')
 
 
-def force_reply_after_gender(user: User, state, session_id, response):
-    # ForceReply: forces a user to reply to a message
-    # Takes an optional selective argument (True/False, default False)
-    msg = "Gender received\nPlease input your year now:"
-    markup = types.ForceReply(selective=False)
-    bot.send_message(user.id, msg, reply_markup=markup)
-    force_reply_after_year(user, state, session_id, "year")
+def process_gender_step(message):
+    try:
+        msg = bot.reply_to(message, 'Gender received\nPlease input your Year now:')
+        bot.register_next_step_handler(msg, process_year_step)
+    except Exception as e:
+        bot.reply_to(message, 'oooops')
 
 
-def force_reply_after_year(user: User, state, session_id, response):
-    # ForceReply: forces a user to reply to a message
-    # Takes an optional selective argument (True/False, default False)
-    msg = "Year received\nPlease input your faculty now:"
-    markup = types.ForceReply(selective=False)
-    return bot.send_message(user.id, msg, reply_markup=markup)
+def process_year_step(message):
+    try:
+        msg = bot.reply_to(message, 'Year received\nPlease input your Faculty now:')
+        bot.register_next_step_handler(msg, process_faculty_step)
+    except Exception as e:
+        bot.reply_to(message, 'oooops')
 
+
+def process_faculty_step(message):
+    msg = bot.reply_to(message, 'Faculty received\nThank you :)')
+
+# def force_reply_after_name(user: User, state, session_id, response):
+#     # ForceReply: forces a user to reply to a message
+#     # Takes an optional selective argument (True/False, default False)
+#     msg = "Name received\nPlease input your gender now:"
+#     markup = types.ForceReply(selective=False)
+#     bot.send_message(user.id, response, reply_markup=markup)
+#     force_reply_after_gender(user, state, session_id, "gender")
+#
+#
+# def force_reply_after_gender(user: User, state, session_id, response):
+#     # ForceReply: forces a user to reply to a message
+#     # Takes an optional selective argument (True/False, default False)
+#     msg = "Gender received\nPlease input your year now:"
+#     markup = types.ForceReply(selective=False)
+#     bot.send_message(user.id, msg, reply_markup=markup)
+#     force_reply_after_year(user, state, session_id, "year")
+#
+#
+# def force_reply_after_year(user: User, state, session_id, response):
+#     # ForceReply: forces a user to reply to a message
+#     # Takes an optional selective argument (True/False, default False)
+#     msg = "Year received\nPlease input your faculty now:"
+#     markup = types.ForceReply(selective=False)
+#     return bot.send_message(user.id, msg, reply_markup=markup)
 
 
 # import telebot

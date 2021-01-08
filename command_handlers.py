@@ -13,9 +13,9 @@ def handle_invalid_command(user: User, command, session_id):
 def __show_default_greeting(user: User, command, session_id):
     # return DEFAULT_GREETING
 
-    send_message(user, command, session_id, DEFAULT_GREETING)
-    return force_reply_after_name(user, command, session_id, "name")
-
+    msg = send_message(user, command, session_id, DEFAULT_GREETING)
+    bot.register_next_step_handler(msg, process_name_step)
+    # return force_reply_after_name(user, command, session_id, "name")
 
 
 # Returns a bulleted list of features the bot offers
