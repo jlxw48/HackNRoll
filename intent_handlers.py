@@ -222,11 +222,11 @@ def __create_user(user: User, intent_action, session_id, lst):
 
 
 def __get_friends(user: User, intent_action, session_id, user_input):
-    response = ""
+    response = "hi!"
 
-    query = "SELECT * FROM test;"
+    query = QUERIES.get("GET_5_USERS_NO_PREF")
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute(query, ()) # pass module here
     row = cursor.fetchone()
     if row is not None:
         while row is not None:
@@ -253,5 +253,6 @@ INTENT_HANDLERS = {
     "Faculty": __update_faculty,
     "Module": __update_module,
     'start': __create_user,
+    'TESTING': __get_friends,
     'UPDATE_PARTICULARS': __show_update_particulars_suggestions
 }

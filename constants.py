@@ -39,17 +39,17 @@ HELP_OPTIONS = (
     "Help 5"
 )
 QUERIES = {
-    "GET_ALL_USERS": "SELECT * FROM users;",
-    "GET_5_USERS_NO_PREF": "SELECT * FROM users LIMIT 5;",
-    "GET_5_USERS_FAC": "SELECT * FROM users WHERE faculty = %s LIMIT 5;",
-    "GET_5_USERS_YEAR": "SELECT * FROM users WHERE study_year = %s LIMIT 5;",
-    "GET_5_USERS_GENDER": "SELECT * FROM users WHERE gender = %s LIMIT 5;",
-    "GET_5_USERS_FAC_YEAR": "SELECT * FROM users WHERE faculty = %s AND study_year = %s LIMIT 5;",
-    "GET_5_USERS_FAC_GENDER": "SELECT * FROM users WHERE faculty = %s AND gender = %s LIMIT 5;",
-    "GET_5_USERS_YEAR_GENDER": "SELECT * FROM users WHERE study_year = %s AND gender = %s LIMIT 5;",
-    "GET_5_USERS_FAC_YEAR_GENDER": "SELECT * FROM users faculty = %s AND study_year = %s AND gender = %s LIMIT 5;",
-    "INSERT_USER": "SET search_path TO soscoders; INSERT INTO users(telegram_id, telegram_username, faculty, study_year, gender) VALUES(%s, %s, %s, %s, %s);",
-    "INSERT_REQUEST": "INSERT INTO request(id, module) VALUES(%s, %s);"
+    "GET_ALL_USERS": "SELECT * FROM soscoders.users;",
+    "GET_5_USERS_NO_PREF": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE module = %s LIMIT 5;",
+    "GET_5_USERS_FAC": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE faculty = %s LIMIT 5;",
+    "GET_5_USERS_YEAR": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE study_year = %s LIMIT 5;",
+    "GET_5_USERS_GENDER": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE gender = %s LIMIT 5;",
+    "GET_5_USERS_FAC_YEAR": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE faculty = %s AND study_year = %s LIMIT 5;",
+    "GET_5_USERS_FAC_GENDER": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE faculty = %s AND gender = %s LIMIT 5;",
+    "GET_5_USERS_YEAR_GENDER": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE study_year = %s AND gender = %s LIMIT 5;",
+    "GET_5_USERS_FAC_YEAR_GENDER": "SELECT * FROM soscoders.request INNER JOIN soscoders.users ON soscoders.request.id = soscoders.users.telegram_id WHERE faculty = %s AND study_year = %s AND gender = %s LIMIT 5;",
+    "INSERT_USER": "INSERT INTO soscoders.users(telegram_id, telegram_username, faculty, study_year, gender) VALUES(%s, %s, %s, %s, %s);",
+    "INSERT_REQUEST": "INSERT INTO soscoders.request(id, module) VALUES(%s, %s);"
 }
 
 # Change the following to suit your project
