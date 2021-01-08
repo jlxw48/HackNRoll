@@ -120,6 +120,7 @@ def __process_individual_telegram_command(command):
 
 
 def process_text(user: User, text):
+
     if is_not_blank(text):
         return telegram_api.send_message_with_keyboard(user, text, 12345, "Select", TEXTKEYBOARDS.get(text)(text))
     else:
@@ -138,5 +139,6 @@ def webhook():
             __process_request(user, 12, user_input, commands)
     else:
         user_text = get_user_text_from_request(req_body)
+        print("in webhook else: " + req_body.get('message').get('text'))
         process_text(user, user_text)
     return ''
