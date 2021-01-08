@@ -11,6 +11,8 @@ from utils import \
     get_user_command_from_request
 import os
 import psycopg2
+
+from api.telegram_api import send_message
 from command_handlers import COMMAND_HANDLERS, handle_invalid_command
 
 DATABASE_URL = os.environ["DATABASE_URL"]
@@ -35,13 +37,28 @@ def webhook():
     user_input = get_user_input_from_request(req_body)
     commands = get_user_command_from_request(req_body)  # new
 
-    if len(commands) == 1:
-        __process_individual_telegram_command(commands[0])
+    if is_not_blank(user.id, user_input):
+        __process_request(user, session, user_input, commands)
 
-    elif is_not_blank(user.id, user_input):
-        __process_input(user, session, user_input)
+    # Original working code
+    # if is_not_blank(user.id, user_input):
+    #     __process_input(user, session, user_input)
 
     return 'This works!'
+
+
+# Process incoming request as either one with commands or one for Dialogflow
+def __process_request(user: User, session: Session, user_input, commands):
+    __process_telegram_commands(user, session, commands)
+
+
+# Processes all individual commands found in user input, concatenating them into a single response for user
+# Does not support options for individual commands since we are responding to potentially multiple commands in input
+def __process_telegram_commands(user: User, session: Session, commands):
+    individual_responses = filter(is_not_blank, map(__process_individual_telegram_command, commands))
+    response = "\n---\n".join(individual_responses)
+
+    send_message(user, ", ".join(commands), session.id, response)
 
 
 def __process_individual_telegram_command(command):
