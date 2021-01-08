@@ -12,20 +12,26 @@ MENU_CODES_TO_OPTIONS = {
 }
 DEFAULT_GREETING = "Hello! Select one of the options to get started:) (Backup: Say \'hi\')"
 DEFAULT_ERROR_MESSAGE = 'Sorry, something went wrong. Please try again later!'
-MAIN_SUGGESTIONS = (
-    "Looking for friends!",
+START_OPTIONS = (
+    "Please update your name:",
+    "Please update your gender:",
+    "Please update your year of study:",
+    "Please update your faculty:"
+)
+NEW_OPTIONS = (
     "Looking for module mates!",
-    "Update my particulars",
 )
-UPDATE_PARTICULARS_SUGGESTIONS = (
+UPDATE_OPTIONS = (
+    "Update my particulars"
+)
+UPDATE_PARTICULARS_OPTIONS = (
     "Name",
-    "Age",
     "Gender",
-    "Module",
     "Year of Study",
-    "Major"
+    "Faculty",
+    "Module",
 )
-HELP_SUGGESTIONS = (
+HELP_OPTIONS = (
     "Help 1",
     "Help 2",
     "Help 3",
