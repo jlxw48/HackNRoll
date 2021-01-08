@@ -1,13 +1,4 @@
-from beans.item import Item
-from beans.user import User
-
-
-# Returns given string if it is not None or blank, else return default value provided
-def default_if_blank(s, default):
-    if is_not_blank(s):
-        return s
-    else:
-        return default
+from user import *
 
 
 # Extracts user id from Telegram request
@@ -41,16 +32,18 @@ def is_not_blank(*string):
     return all(s is not None and s for s in string)
 
 
+# Extracts user's commands from Telegram request
+def get_user_command_from_request(req_body):
+    if 'message' in req_body and 'entities' in req_body['message']:
+        text = req_body.get('message').get('text')
+        return text
+    else:
+        return ''
 
-# Extracts list of Item objects from intent result that were captured from response
-def get_items_from_response(intent_result):
-    entries = []
 
-    # Assumes at least one context is active
-    for captured_item in intent_result.output_contexts[0].parameters['cafe-order-entry']:
-        if captured_item.__contains__('item-number'):
-            entries.append(Item(captured_item['menu-item'], int(captured_item['item-number'])))
-        else:
-            entries.append(Item(captured_item['menu-item'], 1))
-
-    return entries
+def get_user_text_from_request(req_body):
+    if 'message' in req_body:
+        text = req_body.get('message').get('text')
+        return text
+    else:
+        return ''
